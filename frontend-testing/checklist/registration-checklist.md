@@ -88,4 +88,4 @@ This checklist covers functional, validation, UI/UX, and security testing of the
 - Some issues were identified during testing (see failed cases)
 - Testing was based on UI behavior and available requirements
 
-📄 Original version: [PDF](original/Abra-registraition.pdf)
+📄 Original version: [PDF](original/Abra_registration.pdf)
