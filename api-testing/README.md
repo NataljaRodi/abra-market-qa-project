@@ -68,6 +68,8 @@ Expected: product added
 
 ---
 
-## 📁 Postman Collection
+### 📁 Postman Collection
 
-👉 👉 [View Postman Collection](postman/Abra_cart_tests.postman_collection.json)
+This collection contains API test cases for cart functionality, including positive, negative, and destructive scenarios.
+
+👉 [View Postman Collection](postman/Abra_cart_tests.postman_collection.json)
