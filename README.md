@@ -51,7 +51,7 @@ Detailed test scenarios for cart functionality
 ---
 
 ### 🐞 Bug Reports
-Reconstructed bug reports based on failed test scenarios  
+Reconstructed bug reports based on testing results    
 👉 [View Bug Reports](frontend-testing/bug-reports/bug-reports.md)
 
 ---
