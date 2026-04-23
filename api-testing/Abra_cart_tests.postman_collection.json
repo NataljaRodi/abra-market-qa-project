@@ -1,0 +1,3364 @@
+{
+  "info": {
+    "_postman_id": "6726d716-41bd-4e56-bd3a-9ca47edec745",
+    "name": "Abra_cart_tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29009802",
+    "_collection_link": "https://go.postman.co/collection/29009802-6726d716-41bd-4e56-bd3a-9ca47edec745?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "PUT_seller_AddProduct",
+      "item": [
+        {
+          "name": "Positive",
+          "item": [
+            {
+              "name": "200 OK_addProduct_validData",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Save id for future use\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.environment.set(\"id_cart\", jsonData.result.id);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "pm.test(\"Response has ok field set to true\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.ok).to.be.true;\r",
+                      "});\r",
+                      "pm.test(\"Response has result object\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"result\");\r",
+                      "});\r",
+                      "pm.test(\"Result has id field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.result).to.have.property(\"id\");\r",
+                      "    pm.expect(jsonData.result.id).to.be.a(\"number\");\r",
+                      "});\r",
+                      "pm.test(\"Save id for future use\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.environment.set(\"id_cart\", jsonData.result.id);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=5&bundle_variation_pod_id=88",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "5"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Negative",
+          "item": [
+            {
+              "name": "422_Missing_bundle_variation_pod_id",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Float_bundlevariationID",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=2.5",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "2.5"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Negative_BundleVariationPodId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=-25",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "-25"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Symbols_BundleVariationPodId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=^$%23^%26",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "^$%23^%26"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_String_BundleVariationId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=privet",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "privet"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Missing_amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=&bundle_variation_pod_id=2",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Float_Amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2.5&bundle_variation_pod_id=9",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2.5"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Negative_amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=-2&bundle_variation_pod_id=9",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "-2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Symbols_Amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=%23$%^&bundle_variation_pod_id=9",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "%23$%^"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_String_amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=qwerty&bundle_variation_pod_id=9",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "qwerty"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Zero_amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=0&bundle_variation_pod_id=77",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "0"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "77"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_NonExistentBundleVariationPodId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=9044",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9044"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "401_Unauthorized",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "pm.cookies.clear();\r",
+                      "console.log(\"Cookies cleared before request for 422_Unauthorized\");"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\r",
+                      "    pm.response.to.have.status(401);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableCookies": true
+              },
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.wrong_signature",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id=9",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9"
+                    },
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "401_Add_Product_as_a_supplier",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\r",
+                      "    pm.response.to.have.status(401);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableCookies": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIyOSwiaWF0IjoxNzQ0MTkyMTQ3LCJuYmYiOjE3NDQxOTIxNDcsImp0aSI6IjJhNWYzZTNiLTUzMTgtNDdjNS1hODdmLTFmNWNkYWQwNDMzYSIsImV4cCI6MTc0NDc5Njk0NywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.XU8xZOzwaNOXNxjERCAkVx2KyKC4OZ8t3pqNBzlcekg",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=1&bundle_variation_pod_id=456",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "456"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Destructive",
+          "item": [
+            {
+              "name": "422_SQLInjection",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=2&bundle_variation_pod_id='; DROP TABLE products; --",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "2"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "'; DROP TABLE products; --"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_OverflowAmount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999&bundle_variation_pod_id=457",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "457"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_SpecialCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "pm.test(\"Response does not indicate script execution\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(JSON.stringify(jsonData)).to.not.include(\"<script>\");\r",
+                      "    pm.expect(JSON.stringify(jsonData)).to.not.include(\"alert\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=<script>alert('xss')</script>&bundle_variation_pod_id=%3Cscript%3Ealert('xss')%3C/script%3E",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "<script>alert('xss')</script>"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "%3Cscript%3Ealert('xss')%3C/script%3E"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_UnicodeCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "pm.test(\"Detail contains errors for both parameters\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    var errors = jsonData.detail;\r",
+                      "    var amountError = errors.find(err => err.loc.includes(\"amount\"));\r",
+                      "    var bundleError = errors.find(err => err.loc.includes(\"bundle_variation_pod_id\"));\r",
+                      "    pm.expect(amountError).to.exist;\r",
+                      "    pm.expect(bundleError).to.exist;\r",
+                      "    pm.expect(amountError.msg).to.include(\"value is not a valid integer\");\r",
+                      "    pm.expect(bundleError.msg).to.include(\"value is not a valid integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=😀&bundle_variation_pod_id=💥",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "😀"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "💥"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "414_LongQueryString",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "// В Pre-request Script\r",
+                      "const longString = \"1\".repeat(10000); // строка из 10000 символов\r",
+                      "pm.request.url.query.add(`bundle_variation_pod_id=${longString}`);\r",
+                      "pm.request.url.query.add(\"amount=1\");"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 414\", function () {\r",
+                      "    pm.response.to.have.status(414);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field if 422\", function () {\r",
+                      "    if (pm.response.code === 422) {\r",
+                      "        var jsonData = pm.response.json();\r",
+                      "        pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "        pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "    }\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Detail contains error about bundle_variation_pod_id if 422\", function () {\r",
+                      "    if (pm.response.code === 422) {\r",
+                      "        var jsonData = pm.response.json();\r",
+                      "        pm.expect(jsonData.detail[0].loc).to.include(\"bundle_variation_pod_id\");\r",
+                      "        pm.expect(jsonData.detail[0].msg).to.include(\"value is not a valid integer\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=1&bundle_variation_pod_id=",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_MalformedQueryString",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Detail contains error about parameters\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.detail[0].msg).to.include(\"value is not a valid integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=1&&&bundle_variation_pod_id=2&&&",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "2"
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": "",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_NullBytes",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Detail contains errors for both parameters\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    var errors = jsonData.detail;\r",
+                      "    var amountError = errors.find(err => err.loc.includes(\"amount\"));\r",
+                      "    var bundleError = errors.find(err => err.loc.includes(\"bundle_variation_pod_id\"));\r",
+                      "    pm.expect(amountError).to.exist;\r",
+                      "    pm.expect(bundleError).to.exist;\r",
+                      "    pm.expect(amountError.msg).to.include(\"value is not a valid integer\");\r",
+                      "    pm.expect(bundleError.msg).to.include(\"value is not a valid integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/addProduct?amount=1%00&bundle_variation_pod_id=2%00",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "addProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "1%00"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "2%00"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DEL_seller_removeProduct",
+      "item": [
+        {
+          "name": "Positive",
+          "item": [
+            {
+              "name": "200OK_removeProduct",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=458",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "458"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "MultipuleDeletes",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// Сбрасываем счетчик перед началом теста (чтобы избежать влияния предыдущих запусков)\r",
+                      "pm.environment.set(\"deleteRequestCount\", 0);\r",
+                      "\r",
+                      "// Получаем текущий счетчик запросов\r",
+                      "let requestCount = parseInt(pm.environment.get(\"deleteRequestCount\")) || 0;\r",
+                      "\r",
+                      "// Увеличиваем счетчик и сохраняем его\r",
+                      "requestCount++;\r",
+                      "pm.environment.set(\"deleteRequestCount\", requestCount);\r",
+                      "\r",
+                      "pm.test(\"Multiple deletes handled\", () => {\r",
+                      "  if (requestCount === 1) {\r",
+                      "    // Первый запрос: ожидаем успешное удаление\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "    const response = pm.response.json();\r",
+                      "    // Проверяем тело ответа\r",
+                      "    pm.expect(response).to.be.an('object');\r",
+                      "    pm.expect(response).to.have.property('ok', true);\r",
+                      "    pm.expect(response).to.have.property('result');\r",
+                      "    pm.expect(response.result).to.be.an('object');\r",
+                      "    pm.expect(response.result).to.have.property('id');\r",
+                      "    pm.expect(response.result).to.have.property('created_at');\r",
+                      "    pm.expect(response.result).to.have.property('updated_at');\r",
+                      "  } else {\r",
+                      "    // Второй запрос: ожидаем 404\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "    const response = pm.response.json();\r",
+                      "    pm.expect(response).to.be.an('object');\r",
+                      "    pm.expect(response).to.have.property('detail');\r",
+                      "    pm.expect(response.detail).to.include(\"Cart position not found\");\r",
+                      "  }\r",
+                      "});\r",
+                      "\r",
+                      "// Сбрасываем счетчик после второго запроса\r",
+                      "if (requestCount >= 2) {\r",
+                      "  pm.environment.set(\"deleteRequestCount\", 0);\r",
+                      "}"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=109",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "109"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Negative",
+          "item": [
+            {
+              "name": "422_Invalid_BundleVariationPodId",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Invalid bundle variation pod ID format returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=invalid",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "invalid"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Negative_BVPID",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Negative bundle variation pod ID returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "  pm.expect(pm.response.json().error).to.include(\"bundle_variation_pod_id must be a positive integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=-5",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "-5"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "404_Non_Existent",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Non-existent item returns 404\", () => {\r",
+                      "  pm.response.to.have.status(404);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=456",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "456"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Missing_BVPID",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Missing bundle variation pod ID returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "401_Unauthorized",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\r",
+                      "    pm.response.to.have.status(401);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableCookies": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=125",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "125"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Destructive",
+          "item": [
+            {
+              "name": "422_Invalid_Format",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=%20",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "%20"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Over_FlowBVPI",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=9999999999999999999999999999999999999999999",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9999999999999999999999999999999999999999999"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_SQLInjection",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id='; DROP TABLE products; --",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "'; DROP TABLE products; --"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_SpecialCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "pm.test(\"Response does not indicate script execution\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(JSON.stringify(jsonData)).to.not.include(\"<script>\");\r",
+                      "    pm.expect(JSON.stringify(jsonData)).to.not.include(\"alert\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=?=%3Cscript%3Ealert('xss')%3C/script%3E",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "?=%3Cscript%3Ealert('xss')%3C/script%3E"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_UnicodeCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=💥",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "💥"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "414_LongQueryString",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const longString = \"1\".repeat(10000); // строка из 10000 символов\r",
+                      "pm.request.url.query.add(`bundle_variation_pod_id=${longString}`);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "\r",
+                      "pm.test(\"Status code is 414\", function () {\r",
+                      "    pm.response.to.have.status(414);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field if 422\", function () {\r",
+                      "    if (pm.response.code === 422) {\r",
+                      "        var jsonData = pm.response.json();\r",
+                      "        pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "        pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "    }\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?bundle_variation_pod_id=",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_MalformedQueryString",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/removeProduct?&&bundle_variation_pod_id=120&&&",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "removeProduct"
+                  ],
+                  "query": [
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "120"
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": "",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "GET_seller_cart",
+      "item": [
+        {
+          "name": "Positive",
+          "item": [
+            {
+              "name": "200_OK_GetSellerCart(offsetAndLimit)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has ok field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"ok\");\r",
+                      "    pm.expect(jsonData.ok).to.be.true;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has result field as array\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"result\");\r",
+                      "    pm.expect(jsonData.result).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Result items have expected structure\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    if (jsonData.result.length > 0) {\r",
+                      "        var item = jsonData.result[0];\r",
+                      "        pm.expect(item).to.have.property(\"id\").that.is.a(\"number\");\r",
+                      "        pm.expect(item).to.have.property(\"created_at\").that.is.a(\"string\");\r",
+                      "        pm.expect(item).to.have.property(\"updated_at\").that.is.a(\"string\");\r",
+                      "        pm.expect(item).to.have.property(\"amount\").that.is.a(\"number\");\r",
+                      "        pm.expect(item).to.have.property(\"detail\").that.is.an(\"object\");\r",
+                      "        pm.expect(item.detail).to.have.property(\"id\").that.is.a(\"number\");\r",
+                      "        pm.expect(item.detail).to.have.property(\"created_at\").that.is.a(\"string\");\r",
+                      "        pm.expect(item.detail).to.have.property(\"updated_at\").that.is.a(\"string\");\r",
+                      "    }\r",
+                      "});\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=100",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "200_OK_NO_offsetAndLimit",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}",
+                  "host": [
+                    "{{base_Url}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Negative",
+          "item": [
+            {
+              "name": "422_Negative_offset",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=-1&limit=100",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "-1"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Negative_limit",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=-100",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "-100"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Invalid_parameter",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=abc&limit=zxy",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "abc"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "zxy"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_ZeroLimit",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Zero limit returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "  pm.expect(pm.response.json().error).to.include(\"Limit must be a positive integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=0",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "0"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "401_Unautorized",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\r",
+                      "    pm.response.to.have.status(401);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableCookies": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=100",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Destructive",
+          "item": [
+            {
+              "name": "422_OverflowAmount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=999999999999999999999999999999999999999999999999999999&limit=100",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "999999999999999999999999999999999999999999999999999999"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "200ok_Ignore_Junk_Parameters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Ignores junk params\", () => {\r",
+                      "  pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=100&random=trash",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "random",
+                      "value": "trash"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_SpecialCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=1'; DROP TABLE users; --&limit=100",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "1'; DROP TABLE users; --"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_SQL_Injestion",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=?=457'; DROP TABLE products; --",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "?=457'; DROP TABLE products; --"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_UnicodeCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=😀&limit=💥",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "😀"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "💥"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "414_LongQueryString",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Extreme values return 414\", () => {\r",
+                      "  pm.response.to.have.status(414);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "\r",
+                      "const longString = \"1\".repeat(10000); // строка из 10000 символов\r",
+                      "pm.request.url.query.add(`limit=${longString}`);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&limit=",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_MalformedQueryString",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}?offset=0&&&limit=100&&",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": null,
+                      "value": null
+                    },
+                    {
+                      "key": "",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "POST_seller_cartid_products_setAmount",
+      "item": [
+        {
+          "name": "Positive",
+          "item": [
+            {
+              "name": "200_OK_Seller_cartid_products_setAmount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=88&amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Negative",
+          "item": [
+            {
+              "name": "422_missing_BVPid",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Missing bundle variation pod ID returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88",
+                      "disabled": true
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_Missing_amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Missing bundle variation pod ID returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=88",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_invalid_BVPid",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Missing bundle variation pod ID returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=invalid&amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "invalid"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_invalid_amount",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=88&amount=invalid",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "invalid"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_negative_amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Missing bundle variation pod ID returns 422\", () => {\r",
+                      "  pm.response.to.have.status(422);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=88&amount=-10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "-10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "404_NonExist_BVPid",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Non-existent bundle variation pod ID returns 404\", () => {\r",
+                      "  pm.response.to.have.status(404);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=9044&amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "9044"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "404_NonExist_CartID",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Non-existent cart ID returns 404\", () => {\r",
+                      "  pm.response.to.have.status(404);\r",
+                      "  });"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/9999/products/setAmount?bundle_variation_pod_id=88&amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "9999",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "401_Unauthorized",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 401\", function () {\r",
+                      "    pm.response.to.have.status(401);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "protocolProfileBehavior": {
+                "disableCookies": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=88&amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Destructive",
+          "item": [
+            {
+              "name": "422_SQLInjection",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id='; DROP TABLE products; --&amount=10",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "'; DROP TABLE products; --"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_OverflowAmount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=88&amount=999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_SpecialCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "pm.test(\"Response does not indicate script execution\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(JSON.stringify(jsonData)).to.not.include(\"<script>\");\r",
+                      "    pm.expect(JSON.stringify(jsonData)).to.not.include(\"alert\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=%3Cscript%3Ealert('xss')%3C/script%3E&amount=<script>alert('xss')</script>",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "%3Cscript%3Ealert('xss')%3C/script%3E"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "<script>alert('xss')</script>"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_UnicodeCharacters",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "pm.test(\"Detail contains errors for both parameters\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    var errors = jsonData.detail;\r",
+                      "    var amountError = errors.find(err => err.loc.includes(\"amount\"));\r",
+                      "    var bundleError = errors.find(err => err.loc.includes(\"bundle_variation_pod_id\"));\r",
+                      "    pm.expect(amountError).to.exist;\r",
+                      "    pm.expect(bundleError).to.exist;\r",
+                      "    pm.expect(amountError.msg).to.include(\"value is not a valid integer\");\r",
+                      "    pm.expect(bundleError.msg).to.include(\"value is not a valid integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=💥&amount=😀",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "💥"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "😀"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "414_LongQueryString",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "const longString = \"1\".repeat(10000); // строка из 10000 символов\r",
+                      "pm.request.url.query.add(`bundle_variation_pod_id=${longString}`);\r",
+                      "pm.request.url.query.add(\"amount=1\");"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 414\", function () {\r",
+                      "    pm.response.to.have.status(414);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field if 422\", function () {\r",
+                      "    if (pm.response.code === 422) {\r",
+                      "        var jsonData = pm.response.json();\r",
+                      "        pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "        pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "    }\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Detail contains error about bundle_variation_pod_id if 422\", function () {\r",
+                      "    if (pm.response.code === 422) {"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=&amount=1",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_MalformedQueryString",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?amount=10&&&bundle_variation_pod_id=88&&&",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "amount",
+                      "value": "10"
+                    },
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text"
+                    },
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text"
+                    },
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "88"
+                    },
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text"
+                    },
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text"
+                    },
+                    {
+                      "key": "",
+                      "value": null,
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "422_NullBytes",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 422\", function () {\r",
+                      "    pm.response.to.have.status(422);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Response has detail field\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"detail\");\r",
+                      "    pm.expect(jsonData.detail).to.be.an(\"array\");\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Detail contains errors for both parameters\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    var errors = jsonData.detail;\r",
+                      "    var amountError = errors.find(err => err.loc.includes(\"amount\"));\r",
+                      "    var bundleError = errors.find(err => err.loc.includes(\"bundle_variation_pod_id\"));\r",
+                      "    pm.expect(amountError).to.exist;\r",
+                      "    pm.expect(bundleError).to.exist;\r",
+                      "    pm.expect(amountError.msg).to.include(\"value is not a valid integer\");\r",
+                      "    pm.expect(bundleError.msg).to.include(\"value is not a valid integer\");\r",
+                      "});"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_Url}}/{{id_cart}}/products/setAmount?bundle_variation_pod_id=2%00&amount=1%00",
+                  "host": [
+                    "{{base_Url}}"
+                  ],
+                  "path": [
+                    "{{id_cart}}",
+                    "products",
+                    "setAmount"
+                  ],
+                  "query": [
+                    {
+                      "key": "bundle_variation_pod_id",
+                      "value": "2%00"
+                    },
+                    {
+                      "key": "amount",
+                      "value": "1%00"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Log_in_Sing_out",
+      "item": [
+        {
+          "name": "Log in",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"natawko94@gmail.com\",\r\n  \"password\": \"visaginasN01!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.dev.abra-market.com/auth/sign-in",
+              "protocol": "https",
+              "host": [
+                "api",
+                "dev",
+                "abra-market",
+                "com"
+              ],
+              "path": [
+                "auth",
+                "sign-in"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.dev.abra-market.com/auth/sign-out",
+              "protocol": "https",
+              "host": [
+                "api",
+                "dev",
+                "abra-market",
+                "com"
+              ],
+              "path": [
+                "auth",
+                "sign-out"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
