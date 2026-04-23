@@ -70,4 +70,4 @@ Expected: product added
 
 ## 📁 Postman Collection
 
-👉 (will be added)
+👉 👉 [View Postman Collection](postman/Abra_cart_tests.postman_collection.json)
