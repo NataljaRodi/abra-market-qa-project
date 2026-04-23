@@ -1,4 +1,4 @@
-# 🧪 Cart Test Cases
+#  Cart Test Cases
 
 This document contains selected test cases for **shopping cart functionality** in the Abra Market web application.
 
